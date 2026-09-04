@@ -1,6 +1,10 @@
 {
-  "name": "desktop-app",
-  "version": "0.1.1",
+  "name": "maintain-ai-desktop",
+  "version": "0.1.0",
+  "description": "AI-powered predictive maintenance and intelligent maintenance management system",
+  "author": {
+    "name": "Durvesh M. Jadhav, Shrikant K. Katkar, Viraj V. Patil"
+  },
   "private": true,
   "main": "main.js",
   "scripts": {
@@ -12,8 +16,8 @@
     "electron-builder": "^25.0.5"
   },
   "build": {
-    "appId": "com.dmjgroup.desktopapp",
-    "productName": "Desktop App",
+    "appId": "com.dmjgroup.maintainai",
+    "productName": "MAINTAIN AI",
 
     "files": [
       "main.js",
