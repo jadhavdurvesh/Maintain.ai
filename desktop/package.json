@@ -19,9 +19,18 @@
       "package.json"
     ],
     "extraResources": [
-      { "from": "../backend/dist/maintain-ai-backend", "to": "backend/maintain-ai-backend" },
-      { "from": "../frontend/dist", "to": "frontend" }
-    ],
+  {
+    "from": "../backend/dist",
+    "to": "backend",
+    "filter": [
+      "maintain-ai-backend*"
+    ]
+  },
+  {
+    "from": "../frontend/dist",
+    "to": "frontend"
+  }
+],
     "win": { "target": "nsis" },
     "mac": { "target": "dmg", "category": "public.app-category.productivity" },
     "linux": { "target": ["AppImage", "deb"], "category": "Utility" }
