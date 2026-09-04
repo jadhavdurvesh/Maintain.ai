@@ -1,0 +1,201 @@
+{
+  "repo_notes": [
+    {
+      "content": ""
+    }
+  ],
+  "pages": [
+    {
+      "title": "MAINTAIN AI — Project Overview",
+      "purpose": "High-level introduction to MAINTAIN AI: what it is, its architecture (FastAPI backend + React frontend + Electron desktop wrapper), key capabilities, and how the three sub-projects fit together. Links to child pages for setup and architecture details.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Getting Started & Setup",
+      "purpose": "Step-by-step guide for running MAINTAIN AI locally: prerequisites (Python 3.10+, Node 18+), installing backend dependencies, seeding demo data, starting the FastAPI server, starting the Vite dev server, and optionally enabling the Gemini AI path. Covers troubleshooting common startup errors.",
+      "parent": "MAINTAIN AI — Project Overview",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Repository Structure",
+      "purpose": "Explains the monorepo layout: backend/, frontend/, desktop/, and .github/ directories, what each contains, and how they relate. Describes the build artifact flow (frontend/dist and backend/dist consumed by the desktop Electron wrapper).",
+      "parent": "MAINTAIN AI — Project Overview",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Backend Architecture",
+      "purpose": "Overview of the FastAPI backend: application entry point, middleware, router registration, database initialization, and the SQLite persistence layer. Links to child pages covering data models, API routers, and the alerts engine.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Data Models & Schemas",
+      "purpose": "Detailed reference for all SQLAlchemy ORM models (Machine, Component, FaultRecord, SensorReading, MaintenanceRecord, WorkOrder, Alert, SparePart, KnowledgeBaseEntry, AIDiagnosticSession, User, AppSetting) and their Pydantic schema counterparts. Covers enums (HealthStatus, Priority, WorkOrderStatus, etc.), relationships, and cascade rules.",
+      "parent": "Backend Architecture",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "API Routers",
+      "purpose": "Reference for all nine FastAPI routers: machines, maintenance, work_orders, alerts, spare_parts, ai_assistant, reports, users, and settings. Documents each router's prefix, key endpoints (CRUD operations, status transitions, sub-resources), and notable business logic (e.g., completing a work order auto-creates a MaintenanceRecord).",
+      "parent": "Backend Architecture",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Smart Alert Engine",
+      "purpose": "Deep dive into alerts_engine.py: how evaluate_all() and evaluate_machine() work, the three alert triggers (low health score, maintenance overdue/due-soon, repeated unresolved faults), deduplication via raise_alert(), AlertSeverity levels, and how the engine is invoked.",
+      "parent": "Backend Architecture",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Reporting & Data Export",
+      "purpose": "Covers the reports router and export sub-system: dashboard summary endpoint, reliability report, failure analysis, recent-faults and recent-activity feeds, and the three export formats (CSV via stdlib, PDF via ReportLab, Excel via openpyxl). Explains the build_pdf_report and build_excel_report functions.",
+      "parent": "Backend Architecture",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "AI Diagnostic System",
+      "purpose": "Overview of the two-tier AI diagnostic architecture: offline-first engine with Gemini cloud fallback. Explains the POST /api/ai/diagnose flow, AIDiagnosticSession persistence, and the outcome feedback loop. Links to child pages for each engine.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Offline Diagnostic Engine",
+      "purpose": "Detailed explanation of offline_engine.py: knowledge_base.json structure (machine_category, symptoms, causes with confidence scores, clarifying questions, recommended_procedure), the symptom-scoring algorithm (_score_entry), certainty labelling (_certainty_label), the iterative question-answer loop, and PyInstaller frozen-binary path resolution for knowledge_base.json.",
+      "parent": "AI Diagnostic System",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Gemini Cloud Integration",
+      "purpose": "Documents gemini_client.py: the diagnose_with_gemini() function, _resolve_api_key() priority logic (DB setting → env var), SYSTEM_INSTRUCTION prompt engineering, the strict JSON response schema, model configuration (gemini-3.5-flash, GEMINI_MODEL env var), and the silent-failure/fallback design. Covers the AppSetting key storage pattern and the Settings UI for key management.",
+      "parent": "AI Diagnostic System",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Frontend Application",
+      "purpose": "Overview of the React/Vite frontend: application shell (App.jsx), routing structure, sidebar navigation, LiquidGlass UI library integration, FPSGuard performance management, theme toggling, and the API client. Links to child pages for pages and components.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Pages & Navigation",
+      "purpose": "Documents each of the ten frontend pages: Dashboard (summary tiles, charts, recent activity), Machines (list + MachineDetail with sensor readings and components), Maintenance (schedule management), WorkOrders (Kanban-style board), AIAssistant (interactive diagnosis UI), Alerts, SpareParts, Reports (with export buttons), and Settings. Covers the PageHeaderContext pattern for dynamic page titles.",
+      "parent": "Frontend Application",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Shared Components & Styling",
+      "purpose": "Covers reusable UI building blocks: StatusBadge (maps health/severity strings to coloured badges), Charts.jsx (HealthDistributionChart pie, MachineHealthBarChart, GenericBarChart using Recharts), index.css design tokens (CSS variables for colours, stat-grid, LiquidGlass panel classes), and the LiquidGlass/@sohumsuthar/liquid-glass library usage patterns.",
+      "parent": "Frontend Application",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Desktop Application (Electron)",
+      "purpose": "Overview of the Electron wrapper: how main.js orchestrates backend process spawning, the waitForServer health-check loop, BrowserWindow creation, dev vs. packaged mode differences, per-user database path (app.getPath('userData')), and graceful shutdown. Links to child pages for build configuration and CI/CD.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Desktop Build & Packaging",
+      "purpose": "Explains the electron-builder configuration in desktop/package.json: extraResources mapping (backend/dist → backend/, frontend/dist → frontend/), platform targets (NSIS for Windows, DMG for macOS, AppImage+deb for Linux), appId, and the npm run dev / npm run dist scripts. Covers the PyInstaller .spec file for bundling the Python backend.",
+      "parent": "Desktop Application (Electron)",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "CI/CD Pipeline",
+      "purpose": "Documents the GitHub Actions build-desktop.yml workflow: trigger conditions (push v* tags, workflow_dispatch), the three-OS matrix (windows-latest, macos-latest, ubuntu-latest), the sequential build stages (frontend Vite build with VITE_API_URL injection → PyInstaller backend packaging → electron-builder distribution), artifact upload strategy, and npm caching.",
+      "parent": "Desktop Application (Electron)",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Seed Data & Demo Environment",
+      "purpose": "Explains seed_data.py: the eight pre-configured machines (induction motors, pumps, conveyors, compressors), seeded fault records, maintenance history, work orders, spare parts, users, and AI diagnostic sessions. Describes how to run seeding, reset the database, and how evaluate_all() is called at the end of seeding to generate initial alerts.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Glossary",
+      "purpose": "Definitions of all codebase-specific terms, domain concepts, abbreviations, and jargon that an onboarding engineer needs to know, each with code pointers.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Project Credits & Authors",
+      "purpose": "Credits and authorship information for the MAINTAIN AI project, identifying the contributors responsible for the project.",
+      "page_notes": [
+        {
+          "content": "MAINTAIN AI was created by Durvesh M. Jadhav, Shrikant K. Katkar, and Viraj V. Patil."
+        }
+      ]
+    }
+  ]
+}
