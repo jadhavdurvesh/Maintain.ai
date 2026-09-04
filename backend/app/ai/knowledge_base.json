@@ -1,0 +1,118 @@
+[
+  {
+    "machine_category": "induction_motor",
+    "fault_name": "Overheating with noise",
+    "symptoms": ["overheating", "hot", "noise", "vibration", "burning smell"],
+    "questions": [
+      "Is vibration also present?",
+      "Does the motor smell burnt?",
+      "Does overheating occur immediately or after running for some time?",
+      "Has the load increased recently?"
+    ],
+    "causes": [
+      {"cause": "Bearing damage", "confidence": 78},
+      {"cause": "Excessive load", "confidence": 64},
+      {"cause": "Cooling path blockage", "confidence": 42}
+    ],
+    "recommended_procedure": [
+      "Follow approved safety and isolation procedures.",
+      "Check for abnormal vibration and noise at the bearing housings.",
+      "Inspect external cooling paths and fan for obstruction.",
+      "Review operating load and current against nameplate rating.",
+      "If abnormal conditions are confirmed, escalate to qualified maintenance personnel."
+    ],
+    "safety_notes": "Isolate and lock out the motor before any physical inspection."
+  },
+  {
+    "machine_category": "induction_motor",
+    "fault_name": "Fails to start",
+    "symptoms": ["not starting", "no rotation", "humming", "tripping"],
+    "questions": [
+      "Does the motor hum but not rotate?",
+      "Does the protection breaker trip immediately?",
+      "Was the motor running normally before this happened?"
+    ],
+    "causes": [
+      {"cause": "Blown fuse or tripped overload relay", "confidence": 70},
+      {"cause": "Seized bearing or mechanical jam", "confidence": 55},
+      {"cause": "Single-phasing / supply fault", "confidence": 50}
+    ],
+    "recommended_procedure": [
+      "Follow approved safety and isolation procedures.",
+      "Check supply voltage on all three phases.",
+      "Inspect overload relay and fuses.",
+      "Manually check the shaft can turn freely when isolated.",
+      "Escalate to an electrician if supply and protection are healthy."
+    ],
+    "safety_notes": "Never bypass a tripped overload without investigating the cause."
+  },
+  {
+    "machine_category": "pump",
+    "fault_name": "Loss of flow / pressure",
+    "symptoms": ["low pressure", "low flow", "cavitation", "noise", "vibration"],
+    "questions": [
+      "Is there unusual noise resembling gravel or rattling (possible cavitation)?",
+      "Has suction line strainer been checked recently?",
+      "Has flow dropped suddenly or gradually?"
+    ],
+    "causes": [
+      {"cause": "Clogged suction strainer / filter", "confidence": 65},
+      {"cause": "Worn impeller", "confidence": 55},
+      {"cause": "Air ingress / cavitation", "confidence": 45}
+    ],
+    "recommended_procedure": [
+      "Follow approved safety and isolation procedures.",
+      "Check suction strainer and filter for blockage.",
+      "Inspect for suction-side air leaks.",
+      "Check impeller condition if accessible.",
+      "Escalate to qualified maintenance personnel if unresolved."
+    ],
+    "safety_notes": "Relieve system pressure before opening any pump casing."
+  },
+  {
+    "machine_category": "conveyor",
+    "fault_name": "Belt misalignment / drift",
+    "symptoms": ["belt drifting", "rubbing", "noise", "uneven wear"],
+    "questions": [
+      "Does the belt drift to one side consistently?",
+      "Is the drift worse under load or empty?",
+      "Have idlers or rollers been inspected recently?"
+    ],
+    "causes": [
+      {"cause": "Misaligned idlers or pulleys", "confidence": 72},
+      {"cause": "Uneven loading of material", "confidence": 50},
+      {"cause": "Worn belt edge", "confidence": 35}
+    ],
+    "recommended_procedure": [
+      "Follow approved safety and isolation procedures.",
+      "Inspect idler and pulley alignment along the full length.",
+      "Check for uneven material loading.",
+      "Inspect belt edges for wear or damage.",
+      "Escalate to qualified maintenance personnel if unresolved."
+    ],
+    "safety_notes": "Never reach into a running conveyor to adjust tracking."
+  },
+  {
+    "machine_category": "compressor",
+    "fault_name": "High discharge temperature",
+    "symptoms": ["overheating", "high temperature", "high pressure", "shutdown"],
+    "questions": [
+      "Has the intercooler or aftercooler been checked?",
+      "Is the ambient temperature unusually high?",
+      "Has oil level and quality been checked?"
+    ],
+    "causes": [
+      {"cause": "Cooler fouling / blockage", "confidence": 68},
+      {"cause": "Low oil level or degraded lubricant", "confidence": 58},
+      {"cause": "Valve leakage causing recompression", "confidence": 40}
+    ],
+    "recommended_procedure": [
+      "Follow approved safety and isolation procedures.",
+      "Check and clean intercooler/aftercooler fins.",
+      "Check oil level and condition.",
+      "Inspect valves for leakage if temperature stays high.",
+      "Escalate to qualified maintenance personnel if unresolved."
+    ],
+    "safety_notes": "Allow the compressor to depressurize fully before opening any panel."
+  }
+]

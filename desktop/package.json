@@ -1,0 +1,29 @@
+{
+  "name": "maintain-ai-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "dev": "electron .",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^32.1.2",
+    "electron-builder": "^25.0.5"
+  },
+  "build": {
+    "appId": "com.dmjgroup.maintainai",
+    "productName": "MAINTAIN AI",
+    "files": [
+      "main.js",
+      "package.json"
+    ],
+    "extraResources": [
+      { "from": "../backend/dist/maintain-ai-backend", "to": "backend/maintain-ai-backend" },
+      { "from": "../frontend/dist", "to": "frontend" }
+    ],
+    "win": { "target": "nsis" },
+    "mac": { "target": "dmg", "category": "public.app-category.productivity" },
+    "linux": { "target": ["AppImage", "deb"], "category": "Utility" }
+  }
+}
