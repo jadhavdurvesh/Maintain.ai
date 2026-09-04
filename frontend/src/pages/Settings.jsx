@@ -114,6 +114,75 @@ export default function SettingsPage() {
         </LiquidGlass>
       </div>
 
+      <LiquidGlass lens variant="regular" className="section-gap">
+        <div className="panel-header">
+          <span className="panel-title">About MAINTAIN AI</span>
+        </div>
+        <div
+          className="panel-body"
+          style={{
+            textAlign: 'center',
+            padding: '28px 20px',
+          }}
+        >
+          <div
+            style={{
+              fontSize: 24,
+              fontWeight: 700,
+              letterSpacing: '0.04em',
+              marginBottom: 8,
+            }}
+          >
+            MAINTAIN AI
+          </div>
+
+          <p
+            style={{
+              color: 'var(--text-dim)',
+              fontSize: 13,
+              margin: '0 auto 24px',
+              maxWidth: 520,
+              lineHeight: 1.6,
+            }}
+          >
+            AI-powered predictive maintenance and intelligent maintenance management system.
+          </p>
+
+          <div
+            style={{
+              color: 'var(--text-faint)',
+              fontSize: 12,
+              textTransform: 'uppercase',
+              letterSpacing: '0.12em',
+              marginBottom: 10,
+            }}
+          >
+            Developed by
+          </div>
+
+          <div
+            style={{
+              fontSize: 15,
+              lineHeight: 1.9,
+            }}
+          >
+            <div style={{ fontWeight: 600 }}>Durvesh M. Jadhav</div>
+            <div>Shrikant K. Katkar</div>
+            <div>Viraj V. Patil</div>
+          </div>
+
+          <div
+            style={{
+              marginTop: 20,
+              color: 'var(--text-faint)',
+              fontSize: 12,
+            }}
+          >
+            Group Project • 2026&nbsp;&nbsp;·&nbsp;&nbsp;Version 0.1.0
+          </div>
+        </div>
+      </LiquidGlass>
+
       <p style={{ color: 'var(--text-faint)', fontSize: 12, marginTop: 16 }}>
         Note: there's no login/auth flow yet — roles are stored but not enforced. Worth adding
         before this touches a real shop floor with more than one trusted user.
