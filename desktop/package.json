@@ -1,6 +1,6 @@
 {
-  "name": "maintain-ai-desktop",
-  "version": "0.1.0",
+  "name": "desktop-app",
+  "version": "0.1.1",
   "private": true,
   "main": "main.js",
   "scripts": {
@@ -12,27 +12,43 @@
     "electron-builder": "^25.0.5"
   },
   "build": {
-    "appId": "com.dmjgroup.maintainai",
-    "productName": "MAINTAIN AI",
+    "appId": "com.dmjgroup.desktopapp",
+    "productName": "Desktop App",
+
     "files": [
       "main.js",
       "package.json"
     ],
+
     "extraResources": [
-  {
-    "from": "../backend/dist",
-    "to": "backend",
-    "filter": [
-      "maintain-ai-backend*"
-    ]
-  },
-  {
-    "from": "../frontend/dist",
-    "to": "frontend"
-  }
-],
-    "win": { "target": "nsis" },
-    "mac": { "target": "dmg", "category": "public.app-category.productivity" },
-    "linux": { "target": ["AppImage", "deb"], "category": "Utility" }
+      {
+        "from": "../backend/dist",
+        "to": "backend",
+        "filter": [
+          "maintain-ai-backend*"
+        ]
+      },
+      {
+        "from": "../frontend/dist",
+        "to": "frontend"
+      }
+    ],
+
+    "win": {
+      "target": "nsis"
+    },
+
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.productivity"
+    },
+
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Utility"
+    }
   }
 }
