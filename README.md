@@ -1,62 +1,99 @@
 # MAINTAIN AI
-[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/jadhavdurvesh/Maintain.ai)
 
-MAINTAIN AI is an AI-powered predictive maintenance and intelligent maintenance management system. It can run as a web app or as an installable desktop app using the same codebase wrapped in Electron. The system currently supports manual data entry, with capabilities for future integration of real sensors. A key feature is the AI diagnostic assistant, which functions completely offline, using Gemini as an optional enhancement rather than a dependency.
+*(temporary name — rename anytime, it's just a folder name and a page title)*
 
-## Quick Start (Web Version)
+AI-powered predictive maintenance & intelligent maintenance management
+system. Runs as a web app or as an installable desktop app (same code,
+Electron-wrapped), manual data entry for now with the door left open for
+real sensors, and an AI diagnostic assistant that works completely offline
+with Gemini as an optional enhancement rather than a dependency.
 
-To get the web version of MAINTAIN AI up and running, follow these steps:
+## Quick start (web version)
 
-**Terminal 1 — Backend**
 ```bash
+# Terminal 1 — backend
 cd backend
 pip install -r requirements.txt --break-system-packages
 python3 -m app.seed_data
 python3 -m uvicorn app.main:app --reload
-```
 
-**Terminal 2 — Frontend**
-```bash
+# Terminal 2 — frontend
 cd frontend
 npm install
 npm run dev
 ```
 
-Once both servers are running, open **http://localhost:5173** in your browser. The seed script pre-loads the database with four demo machines (a motor, pump, conveyor, and compressor) to provide an initial populated dashboard. For a complete guide, including troubleshooting, please see `SETUP.md`.
+Then open http://localhost:5173. The seed script loads 4 demo machines
+(a motor, pump, conveyor, and compressor) so the dashboard isn't empty.
+Full walkthrough (including troubleshooting) is in `SETUP.md`.
 
-## Installable Desktop App
+## Installable desktop app
 
-The `desktop/` directory contains the configuration to package the frontend and backend into a standalone installer (`.exe`, `.dmg`, or `.AppImage`). This allows end-users to run the application without needing Python or Node.js installed on their machines. The build pipeline and details about API key management are documented in `DESKTOP.md`.
+`desktop/` wraps the same frontend + backend into a real installer
+(.exe/.dmg/.AppImage) — no Python or Node required on the end user's
+machine. Full build pipeline, the cross-compilation caveat, and where the
+Gemini API key actually lives (spoiler: never in the installer) are in
+`DESKTOP.md`.
 
-## Features
+## What's built (V1, functional and tested end to end)
 
-*   **Complete Visual Redesign**: A modern user interface featuring physically-modeled glass effects on the sidebar, top bar, and panels, powered by `@sohumsuthar/liquid-glass`. It includes an animated particle background and both light and dark themes.
-*   **Dashboard**: A central hub displaying live health statuses, active alerts, maintenance tiles, and visualizations like a health-distribution donut chart and per-machine health bars.
-*   **Asset Management**: Comprehensive management of machines, including profiles, components, manual sensor readings, and a full history of faults and maintenance.
-*   **Smart Maintenance Scheduler**: Automatically schedules maintenance based on operating hours.
-*   **Work Order Board**: A Kanban-style board to track work orders from pending to completed status. Completed orders are automatically logged in the machine's maintenance history.
-*   **Smart Alert System**: Generates alerts for low health scores, overdue maintenance, and repeated unresolved faults.
-*   **AI Maintenance Assistant**: An offline-first diagnostic tool that asks clarifying questions to identify potential causes of failure. It provides confidence ratings for each cause and a step-by-step inspection procedure. An optional integration with Gemini is available, configured within the app.
-*   **Spare Parts Inventory**: Tracks spare parts and flags low-stock items.
-*   **Reporting**: Generates reliability and failure-cause analysis reports with charts, available for export as CSV, PDF, or Excel files.
-*   **User Management**: Basic records for user roles (admin, technician, viewer).
-*   **Desktop Packaging**: The application is fully packaged for desktop installation using Electron and PyInstaller.
+- Full visual redesign: real physically-modeled glass (via `@sohumsuthar/liquid-glass`,
+  ray-traced refraction, not a fake blur) on the sidebar, topbar, and every
+  page panel/stat-tile; an animated particle-network background; light and
+  dark themes with a toggle (persisted locally), both tuned for the glass
+  material specifically. Individual data rows/cards (table rows, work order
+  cards) intentionally stay plain — glass is reserved for fixed-count
+  structural panels, not lists that grow with data, per the library's own
+  performance guidance.
+- Dashboard with live health/alert/maintenance tiles and visual charts
+  (health-distribution donut, per-machine health bars)
+- Machine/asset management: profiles, components, manual sensor readings,
+  fault + maintenance history
+- Operating-hours-based smart maintenance scheduler
+- Work order board (pending → in progress → completed), auto-logs to
+  maintenance history on completion
+- Smart Alert System (low health score, overdue/due-soon maintenance,
+  repeated unresolved faults)
+- AI Maintenance Assistant: asks clarifying questions before committing to
+  a cause, rates each cause confirmed/likely/possible/insufficient-info,
+  gives a step-by-step inspection procedure with a safety notice up front.
+  Offline by default; optional Gemini path — key entered once via
+  Settings in the app itself, stored in the local database. Every session
+  is logged so predicted-vs-actual can be compared later.
+- Spare parts inventory with low-stock flagging
+- Reports: reliability, failure-cause breakdown, with charts and
+  CSV/PDF/Excel export
+- User/role records (admin / technician / viewer)
+- **Installable desktop packaging** (Electron + PyInstaller) — built and
+  test-launched end to end, see `DESKTOP.md`
 
-## Technical Trade-off
+## A real trade-off worth knowing about
 
-The physically-accurate glass effect, which includes ray-traced refraction and a live particle background, comes with a performance cost. Testing showed a sustained CPU usage of around 25-30% in the renderer process. The application includes an `FPSGuard` component that automatically degrades the effect on less powerful hardware, and users can toggle the particle animation off to improve performance.
+Physically-accurate glass (ray-traced refraction + a live particle
+background + cursor-tracked specular highlights) has a real, measured cost —
+I saw roughly 25-30% sustained CPU in the renderer process during testing,
+which is expected for this much continuous compositor work, not a bug. An
+`FPSGuard` component is wired in to automatically degrade the effect if a
+machine can't keep up, and there's a "particles" toggle in the sidebar to
+turn off the background animation. If this runs on modest shop-floor
+hardware rather than a modern laptop, worth keeping an eye on.
 
-## Future Work
+## What's next (not built yet — the spec's "optional/future" list)
 
-*   **IoT/Sensor Integration**: The backend is ready to accept sensor data, but the hardware (e.g., ESP32/Arduino) integration is a future step.
-*   **Authentication**: While user roles are defined, access control and enforcement are not yet implemented.
-*   **ML-Based Health Scoring**: The current health scoring is rule-based. A machine learning model will be integrated once sufficient sensor data is collected.
-*   **Platform-Specific Installers**: The build pipeline is set up, but generating `.exe` and `.dmg` installers requires running the build on Windows and macOS, respectively.
+- **IoT/sensor hardware** (ESP32/Arduino) — the reading endpoint already
+  accepts a `source: sensor` field, so this is additive, not a rewrite
+- **Auth** — roles are stored but nothing enforces them yet
+- **Real ML-based health scoring** — current scoring is rule-based; once
+  there's real sensor history, this is where a trained model would slot in
+- **Windows/Mac installers specifically** — the pipeline is built and
+  tested on Linux; producing the actual `.exe`/`.dmg` needs a build run on
+  those OSes (see the cross-compilation note in `DESKTOP.md`)
 
-## Repository Layout
+## Repo layout
 
 ```
 maintain-ai/
-  ├── backend/      # FastAPI + SQLAlchemy backend (see backend/README.md)
-  ├── frontend/     # React + Vite frontend (see frontend/README.md)
-  └── desktop/      # Electron wrapper for the desktop app (see DESKTOP.md)
+  backend/     FastAPI + SQLAlchemy — see backend/README.md
+  frontend/    React + Vite — see frontend/README.md
+  desktop/     Electron wrapper — see DESKTOP.md
+```
