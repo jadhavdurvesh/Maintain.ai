@@ -3,6 +3,8 @@
 
 MAINTAIN AI is an AI-powered predictive maintenance and intelligent maintenance management system. It can run as a web app or as an installable desktop app using the same codebase wrapped in Electron. The system currently supports manual data entry, with capabilities for future integration of real sensors. A key feature is the AI diagnostic assistant, which functions completely offline, using Gemini as an optional enhancement rather than a dependency.
 
+Created by Durvesh M. Jadhav.
+
 ## Quick Start (Web Version)
 
 To get the web version of MAINTAIN AI up and running, follow these steps:
