@@ -6,6 +6,7 @@ python-multipart==0.0.9
 python-dotenv==1.0.1
 reportlab==4.2.5
 openpyxl==3.1.5
+firebase-admin>=6.8,<7
 
 # Optional — only needed if you use the online Gemini diagnostic path.
 # Safe to leave uninstalled: the app falls back to the offline engine automatically.
