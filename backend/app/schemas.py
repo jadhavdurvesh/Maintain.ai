@@ -116,6 +116,22 @@ class WorkOrderUpdate(BaseModel):
     resolution_notes: Optional[str] = None
 
 
+class FaultIn(BaseModel):
+    machine_id: int
+    description: str
+    symptoms: Optional[str] = None
+    severity: str = "warning"
+
+
+class FaultOut(FaultIn):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    cause: Optional[str]
+    resolution: Optional[str]
+    reported_date: datetime
+    resolved_date: Optional[datetime]
+
+
 class AlertOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: int
@@ -152,7 +168,7 @@ class DiagnoseRequest(BaseModel):
 class PossibleCause(BaseModel):
     cause: str
     confidence: int
-    certainty: str  # confirmed | likely | possible | insufficient_information
+    certainty: str
 
 
 class DiagnoseResponse(BaseModel):
@@ -161,7 +177,7 @@ class DiagnoseResponse(BaseModel):
     clarifying_questions: List[str] = []
     possible_causes: List[PossibleCause] = []
     recommended_procedure: List[str] = []
-    source: str  # offline | gemini
+    source: str
     needs_more_info: bool = False
 
 
