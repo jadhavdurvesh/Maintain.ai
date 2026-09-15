@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .database import Base, engine
-from .routers import machines, maintenance, work_orders, alerts, spare_parts, ai_assistant, reports, users, settings
+from .routers import machines, maintenance, work_orders, alerts, spare_parts, ai_assistant, reports, users, settings, notifications, faults
 
 Base.metadata.create_all(bind=engine)
 
@@ -17,7 +17,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # tighten this before any real deployment
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -31,6 +31,8 @@ app.include_router(ai_assistant.router)
 app.include_router(reports.router)
 app.include_router(users.router)
 app.include_router(settings.router)
+app.include_router(notifications.router)
+app.include_router(faults.router)
 
 
 @app.get("/")
