@@ -36,18 +36,23 @@ def create_fault(payload: schemas.FaultIn, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(fault)
 
-    if severity in (models.AlertSeverity.high, models.AlertSeverity.critical):
-        notify_workers(
-            db,
-            workers_for_machine(db, machine.id),
-            "critical_fault" if severity == models.AlertSeverity.critical else "fault",
-            f"{severity.value.upper()} fault: {machine.name}",
-            fault.description,
-            {
-                "type": "fault",
-                "fault_id": fault.id,
-                "machine_id": machine.id,
-                "severity": severity.value,
-            },
-        )
+    title_prefix = {
+        models.AlertSeverity.critical: "CRITICAL fault",
+        models.AlertSeverity.high: "HIGH fault",
+        models.AlertSeverity.warning: "New fault",
+        models.AlertSeverity.normal: "Fault reported",
+    }[severity]
+    notify_workers(
+        db,
+        workers_for_machine(db, machine.id),
+        "critical_fault" if severity == models.AlertSeverity.critical else "fault",
+        f"{title_prefix}: {machine.name}",
+        fault.description,
+        {
+            "type": "fault",
+            "fault_id": fault.id,
+            "machine_id": machine.id,
+            "severity": severity.value,
+        },
+    )
     return fault
